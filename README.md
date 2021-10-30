@@ -11,4 +11,4 @@ Implementation of Mandelbrot Like set, compile it with `make`, or if you want co
 
 Outputs a `.ppm` greyscale image. 
 
-Usage: `./cuM [OUTPUT FILE NAME] [HEIGHT] [WIDTH] [SCALE] [CENTER-x] [CENTER-y]`
+Usage: `./cuM [OUTPUT FILE NAME] [SCALE] [CENTER-x] [CENTER-y] [HEIGHT] [WIDTH]`

@@ -35,6 +35,9 @@ int powi (int base, unsigned int exp)
 
 __device__
 void mset_calc(unsigned short &k, double i, double j, double scale, double ofx, double ofy){
+  /**
+   * Device code used to perform the actual calculation of each pixel
+   * */
     double Re, Im;
     Re = i*scale + ofx;
     Im = j*scale + ofy;
@@ -110,6 +113,12 @@ void HOST_mset_calc(unsigned short &k, double i, double j, double scale, double 
 __global__
 void CudaMandelbrot(size_t width, size_t height,unsigned short* image, double scale, double cx, double cy)
 {
+  /**
+   * Kernel used to act like a bridge between CUDA and CPU code
+   * The strange thing about cuda is that, every "action" on the loop
+   * is performed by a single CUDA_thread, so each CUDA_thread executes a single
+   * simple task. The GPU seems to be more efficient when under full load
+  */
   size_t i{blockIdx.x*blockDim.x + threadIdx.x};
   size_t j{blockIdx.y*blockDim.y + threadIdx.y};
 
@@ -157,6 +166,10 @@ int main(int argc, char** argv)
   unsigned short* myimg = new unsigned short[height*width];
   std::cout << "Img dimensions: h = " << height << "  w = " << width << "\n";
   std::cout << "Paramenters: scale = "<< scale << " cx = " << cx << " cy = " << cy << std::endl;
+
+  /**everything follows is compiled only in "profiling mode, allocates a new buffer for 
+   * storing the image calculated on the cpu, not needed if you do not use that
+    */
   #ifdef PROF
     unsigned short* myimg_CPU = new unsigned short[height*width];
     std::cout << "Running mandelbrot (like) set calculation with time profiling: CPU vs GPU" << std::endl;
@@ -202,7 +215,6 @@ int main(int argc, char** argv)
   //let GPU calculate mandelbrot set and check for errors
   
   t = clock();
- 
 
   CudaMandelbrot<<<numBlocks, threadsPerBlock>>>(width, height, gpuImg, scale, cx, cy);
 
@@ -213,8 +225,9 @@ int main(int argc, char** argv)
   print_err_msg(err);
 
   //copy back pgm image
+  t = clock();
   err = cudaMemcpy(myimg,gpuImg,height*width*2, cudaMemcpyDeviceToHost);
-
+  std::cout << "*** Time to copy the result from GPU: " << (double)(clock() - t)/CLOCKS_PER_SEC << std::endl;
   print_err_msg(err);
 
   //check for img being equal
