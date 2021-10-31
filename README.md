@@ -1,4 +1,7 @@
 # Study Experiments on CUDA
+
+** Requires CUDA installation in order to compile, actually version > 5.0 with `nvcc`
+
 All experiments are tested on my system, they are not optimized, they are study projects done for fun.
 
 System: Intel Core i7 6700HQ + 8GB DDR4 + NVIDA 950M 4GB
