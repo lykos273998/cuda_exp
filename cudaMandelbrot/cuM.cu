@@ -218,9 +218,12 @@ int main(int argc, char** argv)
 
   CudaMandelbrot<<<numBlocks, threadsPerBlock>>>(width, height, gpuImg, scale, cx, cy);
 
-  std::cout << "*** Elapsed calculation time GPU: " << (double)(clock() - t)/CLOCKS_PER_SEC << std::endl;
+  
   
   err = cudaGetLastError();
+  std::cout << "*** Elapsed calculation time GPU: " << (double)(clock() - t)/CLOCKS_PER_SEC << std::endl;
+
+  
 
   print_err_msg(err);
 
