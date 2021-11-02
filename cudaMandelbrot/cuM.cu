@@ -75,8 +75,8 @@ void mset_calc(unsigned short &k, double i, double j, double scale, double ofx, 
 
 void HOST_mset_calc(unsigned short &k, double i, double j, double scale, double ofx, double ofy){
     double Re, Im;
-    Re = i*scale + ofx;
-    Im = j*scale + ofy;
+    Re = (i + ofx)*scale;
+    Im = (j + ofy)*scale;
     double zRe{0.}, zIm{0.}; 
     double cRe{Re},cIm{Im}, z_1Re, z_1Im, temp_zRe, temp_zIm;
 
