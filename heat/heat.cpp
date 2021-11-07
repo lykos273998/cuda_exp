@@ -55,6 +55,7 @@ void DiscreteLaplacian2D(size_t n,Eigen::SparseMatrix<T> &mat){
 	}
 
 	mat.setFromTriplets(triplets.begin(), triplets.end());
+	mat = (-1.)*mat; 
 }
 
 void euler(Eigen::VectorXf &u,const Eigen::VectorXf &F, float dt){
@@ -99,7 +100,7 @@ int main(int argc, char** argv)
 	std::cout << argc << " " << n << std::endl;
 	size_t width{n};
 	size_t height{n};	
-	float t{0}, dt{0.001};
+	float t{0}, dt{0.1};
 
 	//allocating solution vector to calculate at each frame
 	Eigen::VectorXf u(n*n);
@@ -142,7 +143,6 @@ int main(int argc, char** argv)
         {
             if (event.type == sf::Event::KeyPressed){
                 if(once){
-                    once = 0;
                     printf("Key pressed \n");
 		    get_starting_point(u,n);
                     texture.update(buffer);
