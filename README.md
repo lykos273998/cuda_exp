@@ -15,3 +15,9 @@ Implementation of Mandelbrot Like set, compile it with `make`, or if you want co
 Outputs a `.ppm` greyscale image. 
 
 Usage: `./cuM [OUTPUT FILE NAME] [SCALE] [CENTER-x] [CENTER-y] [HEIGHT] [WIDTH]`
+
+## heat
+
+Heat equation parabolic PDE numerical solution, very raw one. The goal was to gain confidence with `eigen` library for linear algebra. 
+
+Euler method was used as integrator, in the current implementation as expected the method is unstable. The animaiton is made using `SFML` library. More info on it [here](https://www.sfml-dev.org/)

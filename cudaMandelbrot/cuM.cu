@@ -119,7 +119,7 @@ void CudaMandelbrot(size_t width, size_t height,unsigned short* image, double sc
    * is performed by a single CUDA_thread, so each CUDA_thread executes a single
    * simple task. The GPU seems to be more efficient when under full load
   */
-  size_t i{blockIdx.x*blockDim.x + threadIdx.x};
+  size_t i{blockIdx.x*blockDim.x + threadIdx.x}; 
   size_t j{blockIdx.y*blockDim.y + threadIdx.y};
 
   if(i < width && j < height){
